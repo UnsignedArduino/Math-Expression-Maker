@@ -1,3 +1,5 @@
+"use strict";
+
 const difficulty_selector = document.getElementById("difficulty_selector");
 const expression_dom = document.getElementById("expression");
 const show_answer_button = document.getElementById("show_answer_button");
