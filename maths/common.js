@@ -1,3 +1,4 @@
+const difficulty_selector = document.getElementById("difficulty_selector");
 const expression_dom = document.getElementById("expression");
 const show_answer_button = document.getElementById("show_answer_button");
 const new_expression_button = document.getElementById("new_expression_button");
@@ -22,11 +23,11 @@ function start_math_maker() {
 
 function end_math_maker(equation) {
   expression = equation;
-  expression_tex = math.parse(expression).toTex();
+  expression_tex = math.parse(expression).toTex({parenthesis: "auto"});
   console.log(expression + "=");
   answer = math.evaluate(equation);
   console.log(answer);
-  answer_tex = math.parse(answer).toTex(answer);
+  answer_tex = math.parse(answer).toTex({parenthesis: "auto"});
   katex.render(expression_tex, expression_dom, {throwOnError: false});
   katex.render(answer_tex, answer_dom, {throwOnError: false});
   show_answer_button.disabled = false;
@@ -53,4 +54,22 @@ function hide_answer() {
   showing_answer = false;
   answer_label_dom.style.display = "none";
   answer_dom.style.display = "none";
+}
+
+function changed_difficulty() {
+  difficulty = parseInt(difficulty_selector.value, 10);
+  generate_equation();
+}
+
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function round(num, places) {
+  if (places == 0) {
+    return Math.round(num);
+  } else {
+    const x = Math.pow(10, places);
+    return Math.round(num * x) / x;
+  }
 }

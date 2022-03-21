@@ -9,6 +9,15 @@
   <body>
     <h1>Math Expression Maker</h1>
     <p>Core operations - Addition</p>
+    <label for="difficulty_selector">Difficulty:</label>
+    <select name="difficulty_selector" id="difficulty_selector" onchange="changed_difficulty();">
+      <option value="0">Free</option>
+      <option value="1">EZ</option>
+      <option value="2">Medium</option>
+      <option value="4">Hard</option>
+      <option value="7">Insane</option>
+      <option value="12">HELP ME</option>
+    </select>
     <p>Solve:</p>
     <p id="expression">Generating equation...</p>
     <p id="answer_label">Answer:</p>
