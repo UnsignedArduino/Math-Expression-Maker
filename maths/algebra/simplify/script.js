@@ -10,10 +10,11 @@ function make_coef_exp(){
 
 function generate_equation(){
   start_math_maker();
-  let eq = "1+1"
+  let eq = "2x"
   if (difficulty == 0){
-    //eq+=make_coef_exp()
+    //eq+="2x"
   }
+  //eq = math.parse(eq).toTex()
   console.log(eq)
   end_math_maker(eq)
 }
