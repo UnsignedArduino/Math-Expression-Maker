@@ -15,7 +15,7 @@ function generate_equation() {
     }
     equation += num;
     if (i < parts - 1) {
-      equation += "+";
+      equation += "*";
     }
   }
   end_math_maker(equation);

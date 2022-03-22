@@ -3,6 +3,7 @@
 function generate_equation() {
   start_math_maker();
   let equation = "";
+  let tex = ""
   const parts = difficulty + 2;
   const minimum = use_negatives ? -((difficulty + 1) * 10) : 0;
   const maximum = (difficulty + 1) * 10;
@@ -14,11 +15,18 @@ function generate_equation() {
       num = Math.round(num);
     }
     equation += num;
+    tex += num;
     if (i < parts - 1) {
-      equation += "+";
+      if (Math.round(randomNumber(0, 1)) == 1) {
+        equation += "*";
+        tex += "*";
+      } else {
+        equation += "/";
+        tex += "\\div";
+      }
     }
   }
-  end_math_maker(equation);
+  end_math_maker(equation, tex);
 }
 
 generate_equation();

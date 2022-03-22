@@ -15,7 +15,11 @@ function generate_equation() {
     }
     equation += num;
     if (i < parts - 1) {
-      equation += "+";
+      if (Math.round(randomNumber(0, 1)) == 1) {
+        equation += "+";
+      } else {
+        equation += "-";
+      }
     }
   }
   end_math_maker(equation);

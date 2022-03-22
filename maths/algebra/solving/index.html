@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Math Expression Maker - Core operations - Subtraction</title>
+    <title>Math Expression Maker - Algebra - Solving</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
   </head>
   <body>
     <h1>Math Expression Maker</h1>
-    <p>Core operations - Subtraction</p>
+    <p>Algebra - Solving</p>
     <label for="difficulty_selector">Difficulty:</label>
-    <select name="difficulty_selector" id="difficulty_selector" onchange="changed_setting();">
+    <select name="difficulty_selector" id="difficulty_selector" onchange="changed_difficulty();">
       <option value="0">Free</option>
       <option value="1">EZ</option>
       <option value="2">Medium</option>
@@ -18,14 +18,7 @@
       <option value="7">Insane</option>
       <option value="12">HELP ME</option>
     </select>
-    <br>
-    <input type="checkbox" id="has_decimals" name="has_decimals" value="1" onchange="changed_setting();">
-    <label for="has_decimals"> Allow decimals</label>
-    <br>
-    <input type="checkbox" id="has_negatives" name="has_negatives" value="1" onchange="changed_setting();">
-    <label for="has_negatives"> Allow negatives</label>
-    <br>
-    <p>Solve:</p>
+    <p>Solving:</p>
     <p id="expression">Generating equation...</p>
     <noscript>
       <b>
@@ -38,7 +31,7 @@
     <button type="button" id="new_expression_button" disabled=true onclick="generate_equation();">New problem</button>
     <br>
     <br>
-    <a href="/maths/core_operations">Go back to core operations</a>
+    <a href="/maths/algebra">Go back to Algebra</a>
     <br>
     <a href="/">Go back to home</a>
 

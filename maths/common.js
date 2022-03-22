@@ -1,6 +1,8 @@
 "use strict";
 
 const difficulty_selector = document.getElementById("difficulty_selector");
+const allow_decimals_dom = document.getElementById("has_decimals");
+const allow_negatives_dom = document.getElementById("has_negatives");
 const expression_dom = document.getElementById("expression");
 const show_answer_button = document.getElementById("show_answer_button");
 const new_expression_button = document.getElementById("new_expression_button");
@@ -15,6 +17,8 @@ let answer_tex = "";
 let showing_answer = false;
 
 let difficulty = 0;
+let use_decimals = false;
+let use_negatives = false;
 
 function start_math_maker() {
   expression_dom.innerHTML = "Generating equation...";
@@ -23,9 +27,13 @@ function start_math_maker() {
   new_expression_button.disabled = true;
 }
 
-function end_math_maker(equation) {
+function end_math_maker(equation, tex) {
   expression = equation;
-  expression_tex = math.parse(expression).toTex({parenthesis: "auto"});
+  if (tex === undefined) {
+    expression_tex = math.parse(expression).toTex({parenthesis: "auto"});
+  } else {
+    expression_tex = tex;
+  }
   console.log(expression + "=");
   answer = math.evaluate(equation);
   console.log(answer);
@@ -58,8 +66,10 @@ function hide_answer() {
   answer_dom.style.display = "none";
 }
 
-function changed_difficulty() {
+function changed_setting() {
   difficulty = parseInt(difficulty_selector.value, 10);
+  use_decimals = allow_decimals_dom.checked;
+  use_negatives = allow_negatives_dom.checked;
   generate_equation();
 }
 
