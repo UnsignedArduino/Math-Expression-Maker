@@ -42,15 +42,19 @@ function toggle_answer() {
 function show_answer() {
   showing_answer = true;
   show_answer_button.innerHTML = "Hide answer";
-  answer_label_dom.style.display = "";
-  answer_dom.style.display = "";
+  // answer_label_dom.style.display = "";
+  // answer_dom.style.display = "";
+  answer_label_dom.hidden = false;
+  answer_dom.hidden = false;
 }
 
 function hide_answer() {
   show_answer_button.innerHTML = "Show answer";
   showing_answer = false;
-  answer_label_dom.style.display = "none";
-  answer_dom.style.display = "none";
+  // answer_label_dom.style.display = "none";
+  // answer_dom.style.display = "none";
+  answer_label_dom.hidden = true;
+  answer_dom.hidden = true;
 }
 
 function random_number(min, max) {

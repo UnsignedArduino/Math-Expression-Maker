@@ -25,15 +25,16 @@
     <input type="checkbox" id="has_negatives" name="has_negatives" value="1" onchange="changed_setting();">
     <label for="has_negatives"> Allow negatives</label>
     <br>
-    <p>Solve:</p>
-    <p id="expression">Generating equation...</p>
     <noscript>
+      <br>
       <b>
         JavaScript is required to generate and evaluate expressions!
       </b>
     </noscript>
-    <p id="answer_label">Answer:</p>
-    <p id="answer">Calculating answer...</p>
+    <p>Solve:</p>
+    <p id="expression">Generating equation...</p>
+    <p id="answer_label" hidden=true>Answer:</p>
+    <p id="answer" hidden=true>Calculating answer...</p>
     <button type="button" id="show_answer_button" disabled=true onclick="toggle_answer();">Show answer</button>
     <button type="button" id="new_expression_button" disabled=true onclick="generate_equation();">New problem</button>
     <br>
