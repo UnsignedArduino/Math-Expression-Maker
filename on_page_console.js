@@ -9,7 +9,6 @@ const on_page_console = true;
 
 if (on_page_console) {
   (() => {
-    const msgs_to_keep = 1000;
     const element_to_append_to = document.body;
     
     element_to_append_to.appendChild(document.createElement("br"));
@@ -22,19 +21,22 @@ if (on_page_console) {
     const warning_b = document.createElement("b");
     warning_b.innerHTML = "On page console:";
     on_page_console_div.appendChild(warning_b);
+
+    element_to_append_to.appendChild(document.createElement("br"));
     
-    const console_div = document.createElement("div");
-    console_div.id = "log_container";
-    console_div.style.overflow = "auto";
-    console_div.style.height = "150px";
-    console_div.style.border = "1px outset black";
-    console_div.style.padding = "5px";
+    on_page_console_div.appendChild(document.createElement("br"));
     
-    const console_pre = document.createElement("pre");
-    console_pre.id = "log";
-    
-    console_div.appendChild(console_pre);
-    on_page_console_div.appendChild(console_div);
+    const console_textarea = document.createElement("textarea");
+    console_textarea.type = "text";
+    console_textarea.rows = 10;
+    console_textarea.cols = 40;
+    console_textarea.id = "command_input";
+    console_textarea.name = "command_input";
+    console_textarea.readOnly = true;
+    console_textarea.style = "width: 100%; resize: vertical; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;"
+    on_page_console_div.appendChild(console_textarea);
+
+    on_page_console_div.appendChild(document.createElement("br"));
     
     const command_label = document.createElement("label");
     command_label.for = "command_input";
@@ -44,14 +46,13 @@ if (on_page_console) {
                               "<a href=\"https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts#using_eval_in_content_scripts\">here</a>.)";
     on_page_console_div.appendChild(command_label);
   
-    on_page_console_div.appendChild(document.createElement("br"));
-  
     const command_input = document.createElement("textarea");
     command_input.type = "text";
-    command_input.rows = 5;
+    command_input.rows = 10;
     command_input.cols = 40;
     command_input.id = "command_input";
     command_input.name = "command_input";
+    command_input.style = "width: 100%; resize: vertical; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;"
     on_page_console_div.appendChild(command_input);
   
     on_page_console_div.appendChild(document.createElement("br"));
@@ -69,41 +70,18 @@ if (on_page_console) {
     const auto_scroll = true;
   
     // https://stackoverflow.com/a/50773729/10291933
-  
-    const color_mapping = new Map();
-    color_mapping.set("warn", "orange");
-    color_mapping.set("error", "red");
-    color_mapping.set("info", "skyblue");
-    color_mapping.set("log", "gray");
-    color_mapping.set("debug", "gray");
     
-    function produce_html(name, args) {
+    function produce_text(name, args) {
       return args.reduce((output, arg) => {
-        return output +
-          "<span style=\"color: " + color_mapping.get(name) + ";\">" +
-              (typeof arg === "object" && (JSON || {}).stringify ? JSON.stringify(arg) : arg) +
-          "</span>&nbsp;";
+        return output + (typeof arg === "object" && (JSON || {}).stringify ? JSON.stringify(arg) : arg) + "\n";
       }, "");
     }
     
     function rewire_logging_func(name) {
       console["old" + name] = console[name];
       console[name] = (...arguments) => {
-        const output = produce_html(name, arguments);
-    
-        if (auto_scroll) {
-          console_pre.innerHTML += output + "<br>";
-          if (console_div.scrollHeight - console_div.clientHeight <= console_div.scrollTop + 1) {
-            console_div.scrollTop = console_div.scrollHeight - console_div.clientHeight;
-          }
-        } else {
-          console_pre.innerHTML += output + "<br>";
-        }
-    
-        while (console_pre.childElementCount > msgs_to_keep) {
-          console_pre.removeChild(console_pre.firstChild);
-        }
-    
+        console_textarea.innerHTML += produce_text(name, arguments);;
+        console_textarea.scrollTop = console_textarea.scrollHeight;
         console["old" + name].apply(undefined, arguments);
       };
     }
