@@ -11,10 +11,6 @@ let answer_tex = "";
 
 let showing_answer = false;
 
-let difficulty = 0;
-let use_decimals = false;
-let use_negatives = false;
-
 function start_math_maker() {
   expression_dom.innerHTML = "Generating equation...";
   hide_answer();
@@ -62,7 +58,7 @@ function random_number(min, max) {
 }
 
 function round(num, places) {
-  if (places == 0) {
+  if (places === 0 || places == undefined) {
     return Math.round(num);
   } else {
     const x = Math.pow(10, places);
