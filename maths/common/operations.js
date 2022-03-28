@@ -59,7 +59,7 @@ class BinaryOperation {
 
 class AdditionOperation extends BinaryOperation {
   evaluate() {
-    return this.val1 + this.val2;
+    return this.val1.evaluate() + this.val2.evaluate(0);
   }
 
   as_string() {
@@ -68,5 +68,19 @@ class AdditionOperation extends BinaryOperation {
 
   as_tex() {
     return "(" + this.val1.as_tex() + "+" + this.val2.as_tex() + ")";
+  }
+}
+
+class SubtractionOperation extends BinaryOperation {
+  evaluate() {
+    return this.val1.evaluate() - this.val2.evaluate(0);
+  }
+
+  as_string() {
+    return "(" + this.val1.as_string() + "-" + this.val2.as_string() + ")";
+  }
+
+  as_tex() {
+    return "(" + this.val1.as_tex() + "-" + this.val2.as_tex() + ")";
   }
 }

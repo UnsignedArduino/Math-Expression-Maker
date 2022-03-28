@@ -15,11 +15,12 @@ function changed_setting() {
   generate_equation();
 }
 
-function generate_expression_part(type, min, max, chance_to_expr, decimal_places) {
+function generate_expression_part(type, min, division, max, chance_to_expr, decimal_places) {
   if (random_number(0, 1) < chance_to_expr) {
+    const new_division = round(random_number(min, division), decimal_places);
     return new type(
-      generate_expression_part(type, min, max, chance_to_expr - 0.1, decimal_places),
-      generate_expression_part(type, min, max, chance_to_expr - 0.1, decimal_places)
+      generate_expression_part(type, min, new_division, division, chance_to_expr - 0.1, decimal_places),
+      generate_expression_part(type, division, new_division, max, chance_to_expr - 0.1, decimal_places)
     )
   } else {
     return new RealNumber(round(random_number(min, max), decimal_places));
@@ -35,16 +36,17 @@ function generate_equation() {
 
   const max = Math.pow(10, difficulty + 1);
   const min = use_negatives ? -max : 0;
-  const decimal_precision = use_decimals ? difficulty : 0;
+  const decimal_precision = use_decimals ? difficulty + 1 : 0;
+  const division = round(random_number(min, max), decimal_precision);
   const chance_to_expr = 0.1 * (difficulty + 1);
 
   console.log("Number min: " + min);
   console.log("Number max: " + max);
   console.log("Decimal precision: " + decimal_precision);
   
-  let expression = new AdditionOperation(
-    generate_expression_part(AdditionOperation, min, max, chance_to_expr, decimal_precision),
-    generate_expression_part(AdditionOperation, min, max, chance_to_expr, decimal_precision),
+  let expression = new SubtractionOperation(
+    generate_expression_part(SubtractionOperation, min, division, max, chance_to_expr, decimal_precision),
+    generate_expression_part(SubtractionOperation, min, division, max, chance_to_expr, decimal_precision),
   );
   
   let equation = expression.as_string();
