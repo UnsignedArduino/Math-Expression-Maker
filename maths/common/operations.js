@@ -12,11 +12,11 @@ class RealNumber {
   }
 
   as_string() {
-    return "(" + this.val + ")";
+    return this.val;
   }
 
   as_tex() {
-    return this.as_string();
+    return this.val;
   }
 }
 
