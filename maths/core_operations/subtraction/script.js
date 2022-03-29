@@ -50,12 +50,13 @@ function generate_equation() {
   );
   
   let equation = expression.as_string();
-  let tex = expression.as_tex();
   console.log("Equation: " + equation);
   let equation_t = math.parse(equation).toTex({parenthesis: "auto"});
+  console.log("TeX: " + equation_t);
   let answer = math.evaluate(equation);
   console.log("Answer: " + answer);
   let answer_t = math.parse(answer).toTex({parenthesis: "auto"});
+  console.log("TeX: " + answer_t);
   end_math_maker(equation_t, answer_t);
 }
 

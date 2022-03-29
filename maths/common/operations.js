@@ -32,10 +32,6 @@ class UnaryOperation {
   as_string() {
     return undefined;
   }
-
-  as_tex() {
-    return undefined;
-  }
 }
 
 class BinaryOperation {
@@ -51,10 +47,6 @@ class BinaryOperation {
   as_string() {
     return undefined;
   }
-
-  as_tex() {
-    return undefined;
-  }
 }
 
 class AdditionOperation extends BinaryOperation {
@@ -64,10 +56,6 @@ class AdditionOperation extends BinaryOperation {
 
   as_string() {
     return "(" + this.val1.as_string() + "+" + this.val2.as_string() + ")";
-  }
-
-  as_tex() {
-    return "(" + this.val1.as_tex() + "+" + this.val2.as_tex() + ")";
   }
 }
 
@@ -79,10 +67,6 @@ class SubtractionOperation extends BinaryOperation {
   as_string() {
     return "(" + this.val1.as_string() + "-" + this.val2.as_string() + ")";
   }
-
-  as_tex() {
-    return "(" + this.val1.as_tex() + "-" + this.val2.as_tex() + ")";
-  }
 }
 
 class MultiplicationOperation extends BinaryOperation {
@@ -93,8 +77,14 @@ class MultiplicationOperation extends BinaryOperation {
   as_string() {
     return "(" + this.val1.as_string() + "*" + this.val2.as_string() + ")";
   }
+}
 
-  as_tex() {
-    return "(" + this.val1.as_tex() + "*" + this.val2.as_tex() + ")";
+class DivisionOperation extends BinaryOperation {
+  evaluate() {
+    return this.val1.evaluate() - this.val2.evaluate();
+  }
+
+  as_string() {
+    return "(" + this.val1.as_string() + "/" + this.val2.as_string() + ")";
   }
 }
