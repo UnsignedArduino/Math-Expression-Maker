@@ -42,18 +42,20 @@ function generate_equation() {
   console.log("Number max: " + max);
   console.log("Decimal precision: " + decimal_precision);
   
-  let expression = new AdditionOperation(
-    generate_expression_part(AdditionOperation, min, max, chance_to_expr, decimal_precision),
-    generate_expression_part(AdditionOperation, min, max, chance_to_expr, decimal_precision),
+  let expression = new MultiplicationOperation(
+    generate_expression_part(MultiplicationOperation, min, max, chance_to_expr, decimal_precision),
+    generate_expression_part(MultiplicationOperation, min, max, chance_to_expr, decimal_precision),
   );
   
   let equation = expression.as_string();
   let tex = expression.as_tex();
   console.log("Equation: " + equation);
+  console.log("TeX: " + tex);
   let equation_t = math.parse(equation).toTex({parenthesis: "auto"});
   let answer = math.evaluate(equation);
   console.log("Answer: " + answer);
   let answer_t = math.parse(answer).toTex({parenthesis: "auto"});
+  console.log("TeX: " + answer_t);
   end_math_maker(equation_t, answer_t);
 }
 
