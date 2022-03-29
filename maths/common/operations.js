@@ -88,3 +88,13 @@ class DivisionOperation extends BinaryOperation {
     return "(" + this.val1.as_string() + "/" + this.val2.as_string() + ")";
   }
 }
+
+class ExponentationOperation extends BinaryOperation {
+  evaluate() {
+    return Math.pow(this.val1.evaluate(), this.val2.evaluate());
+  }
+
+  as_string() {
+    return "(" + this.val1.as_string() + "^" + this.val2.as_string() + ")";
+  }
+}
