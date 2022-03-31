@@ -37,12 +37,13 @@ function generate_equation() {
   console.log("Number min: " + min);
   console.log("Number max: " + max);
   console.log("Decimal precision: " + decimal_precision);
-
-  // ExponentationOperation
   
   let expression = new ExponentationOperation(
     generate_expression_part(ExponentationOperation, min, max, chance_to_expr, decimal_precision),
-    new RealNumber(round(random_number(0, 3 + (difficulty + 1))))
+    new RealNumber(round(random_number(
+      Math.max(difficulty - 2, 0), 
+      3 + (difficulty + 1)
+    )))
   );
   
   let equation = expression.as_string();
