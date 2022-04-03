@@ -20,6 +20,24 @@ class RealNumber {
   }
 }
 
+class Variable {
+  constructor(val) {
+    this.val = val;
+  }
+
+  evaluate() {
+    return undefined;
+  }
+
+  as_string() {
+    return this.val;
+  }
+
+  as_tex() {
+    return this.val;
+  }
+}
+
 class UnaryOperation {
   constructor(val1) {
     this.val1 = val1;
@@ -76,6 +94,42 @@ class MultiplicationOperation extends BinaryOperation {
 
   as_string() {
     return "(" + this.val1.as_string() + "*" + this.val2.as_string() + ")";
+  }
+}
+
+class VariableWithCoefficient extends MultiplicationOperation {
+  evaluate() {
+    return this.val1.evaluate() * this.val2.evaluate();
+  }
+
+  as_string() {
+    if (this.val1.evaluate() === 0) {
+      return "(" + this.val1.as_string() + "*" + this.val2.as_string() + ")";
+    } else if (this.val1.evaluate() === 1) {
+      return "(" + this.val2.as_string() + ")";
+    } else if (this.val1.evaluate() === -1) {
+      return "(-" + this.val2.as_string() + ")";
+    } else {
+      return "(" + this.val1.as_string() + "" + this.val2.as_string() + ")";
+    }
+  }
+}
+
+class VariableWithCoefficientAndNoParenthesis extends MultiplicationOperation {
+  evaluate() {
+    return this.val1.evaluate() * this.val2.evaluate();
+  }
+
+  as_string() {
+    if (this.val1.evaluate() === 0) {
+      return this.val1.as_string() + "*" + this.val2.as_string();
+    } else if (this.val1.evaluate() === 1) {
+      return this.val2.as_string();
+    } else if (this.val1.evaluate() === -1) {
+      return "-" + this.val2.as_string();
+    } else {
+      return this.val1.as_string() + "" + this.val2.as_string();
+    }
   }
 }
 
