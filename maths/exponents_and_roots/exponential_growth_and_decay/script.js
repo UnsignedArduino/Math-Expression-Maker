@@ -15,6 +15,7 @@ function generate_equation() {
   start_math_maker();
 
   const max = 10 + (10 * difficulty);
+  const higher_max = 20 + (10 * (difficulty + 2));
   const min = false ? -max : 0;
   const decimal_precision = 0;
   const chance_to_expr = 0 * (difficulty + 1);
@@ -27,9 +28,14 @@ function generate_equation() {
   // a = initial amount
   // r = rate as decimal (0.1 for 10%)
 
-  const a = round(random_number(min, max), decimal_precision);
-  const r = round(random_number(0, 1), Math.min(Math.max(difficulty + 1, 0), 2));
-  const x = round(random_number(min, max / 5));
+  const r = round(random_number(-1, 1), Math.min(Math.max(difficulty + 1, 0), 2));
+  let a;
+  if (r < 0) {
+    a = round(random_number(min, higher_max), decimal_precision);
+  } else {
+    a = round(random_number(min, max), decimal_precision);
+  }
+  const x = round(random_number(min, max / 2));
 
   const equation = new MultiplicationOperation(
     new RealNumber(a),
@@ -42,11 +48,18 @@ function generate_equation() {
     )
   );
   const equation_s = equation.as_string();
-  
-  const equation_t = "With an initial amount of " + a + 
-                     " and a growth rate of " + (r * 100) + "%, " + 
-                     "what is the value at " + x + "?";
 
+  let equation_t;
+
+  if (r < 0) {
+    equation_t = "With an initial amount of <b>" + a + "</b> " + 
+                 "and a <b>decay</b> rate of <b>" + (Math.abs(r) * 100) + "%</b>, " + 
+                 "what is the value at <b>" + x + "</b>?";
+  } else {
+    equation_t = "With an initial amount of <b>" + a + "</b> " +
+                 "and a <b>growth</b> rate of <b>" + (r * 100) + "%</b>, " + 
+                 "what is the value at <b>" + x + "</b>?";
+  }
   
   console.log("Equation: " + equation_s);
   const answer = math.evaluate(equation_s);
