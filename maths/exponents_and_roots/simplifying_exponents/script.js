@@ -28,14 +28,14 @@ function generate_expression_part(types, min, max, chance_to_expr, decimal_place
     let part2;
     const variables = ["x", "y", "z", "a", "b", "c"];
     const randomVar = variables[Math.floor(Math.random() * Math.min(difficulty + 1, variables.length))];
-    if (round(random_number, 0, 2) == 0 || true) {
+    if (round(random_number(0, 3) == 0)) {
+      part1 = new RealNumber(round(random_number(min, max), decimal_places));
+    } else {
       // VariableWithCoefficient
       part1 = new VariableWithCoefficientAndNoParenthesis(
         new RealNumber(round(random_number(min, max), decimal_places)),
         new Variable(randomVar)
       );
-    } else {
-      part1 = new RealNumber(round(random_number(min, max), decimal_places));
     }
     part2 = new RealNumber(round(random_number(min, max), decimal_places));
     return new ExponentationOperation(part1, part2);

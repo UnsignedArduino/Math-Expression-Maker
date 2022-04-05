@@ -18,10 +18,17 @@ function start_math_maker() {
   new_expression_button.disabled = true;
 }
 
-function end_math_maker(equation_t, result_t) {
+function end_math_maker(equation_t, result_t, equation_is_text, result_is_text) {
   expression_tex = equation_t;
   answer_tex = result_t
-  katex.render(expression_tex, expression_dom, {throwOnError: false});
+  if (equation_is_text) {
+    expression_dom.innerHTML = equation_t;
+  } else {
+    katex.render(expression_tex, expression_dom, {throwOnError: false});
+  }
+  if (result_is_text) {
+    
+  }
   katex.render(answer_tex, answer_dom, {throwOnError: false});
   show_answer_button.disabled = false;
   new_expression_button.disabled = false;
