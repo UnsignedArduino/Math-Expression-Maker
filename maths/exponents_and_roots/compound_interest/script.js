@@ -56,8 +56,10 @@ function generate_equation() {
                      "an interest rate of <b>" + (r * 100) + "%</b> " + 
                      "that is compounded <b>" + n + "</b> time" + (n == 1 ? "" : "s") + " a year, " + 
                      "what is the value after <b>" + t + "</b> year" + (t == 1 ? "" : "s") + "?";
-  const answer = math.evaluate(equation_s);
+  let answer = math.evaluate(equation_s);
   console.log("Answer: " + answer);
+  answer = round(answer, 2);
+  console.log("Answer rounded: " + answer);
   const answer_t = "\\$" + math.parse(answer).toTex({parenthesis: "auto"});
   console.log("TeX: "  + answer_t);
   end_math_maker(equation_t, answer_t, true);
