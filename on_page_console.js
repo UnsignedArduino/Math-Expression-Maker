@@ -10,8 +10,7 @@ const show_on_page_console = true;
 // Code reviewed: https://codereview.stackexchange.com/a/275550/206220
 
 if (show_on_page_console) {
-  (() => {
-    const where_to_add = document.body;
+  const where_to_add = document.body;
   const console_title = `On Page Console:`;
   const console_id = "console_out";
   const console_label = `Run JavaScript code: 
@@ -22,7 +21,7 @@ if (show_on_page_console) {
   const script_id = "script_in";
   const text_area_style = "width: 100%; resize: vertical; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;";
   
-  function runHandler() {
+  function run_handler() {
     console.log(`Result: ${eval(document.getElementById(script_id).value)}`)
   }
   
@@ -38,7 +37,7 @@ if (show_on_page_console) {
     let console_output = document.getElementById(console_id)
     console["old" + name] = console[name];
     console[name] = (...arguments) => {
-      console_output.innerHTML += produce_text(name, arguments);;
+      console_output.innerHTML += produce_text(name, arguments);
       console_output.scrollTop = console_output.scrollHeight;
       console["old" + name].apply(undefined, arguments);
     };
@@ -74,11 +73,10 @@ if (show_on_page_console) {
       <br>
       <textarea rows="10" cols="40" type="text" id="${script_id}" style="${text_area_style}"></textarea>
       <br>
-      <button onclick="runHandler()">Run</button>
+      <button onclick="run_handler();">Run</button>
     </div>
   `;
   where_to_add.insertAdjacentHTML("beforeend", console_html);
   
   rewire_logging();
-  })();
 }
