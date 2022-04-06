@@ -152,3 +152,28 @@ class ExponentationOperation extends BinaryOperation {
     return "(" + this.val1.as_string() + "^" + this.val2.as_string() + ")";
   }
 }
+
+class RootOperation extends BinaryOperation {
+  evaluate() {
+    return math.nthRoot(this.val1.evaluate(), this.val2.evaluate());
+  }
+
+  as_string() {
+    return "root(" + this.val1.as_string() + ", " + this.val2.as_string() + ")";
+  }
+}
+
+const EXTENDED_EVALUATION_SCOPE = {
+  root: math.nthRoot
+}
+
+const EXTENDED_LATEX_FUNCTIONS = {
+  "root": (node, options) => {
+    // Example: "\\sqrt[3]{64}"
+    const param1 = node.args[0].toTex(options);
+    const param2 = node.args[1].toTex(options);
+    const root = "\\sqrt[" + param2 + "]{" + param1 + "}";
+    // console.log("Root: " + root);
+    return root;
+  }
+}
