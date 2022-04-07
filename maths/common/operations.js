@@ -165,7 +165,7 @@ class RootOperation extends BinaryOperation {
 
 const EXTENDED_EVALUATION_SCOPE = {
   root: math.nthRoot
-}
+};
 
 const EXTENDED_LATEX_FUNCTIONS = {
   "root": (node, options) => {
@@ -176,4 +176,23 @@ const EXTENDED_LATEX_FUNCTIONS = {
     // console.log("Root: " + root);
     return root;
   }
-}
+};
+
+const EXTENDED_SIMPLIFICATION_RULES = [
+  {
+    l: "root(n1, n3) + root(n2, n3)",
+    r: "root(n1 + n2, n3)"
+  },
+  {
+    l: "root(n1, n3) - root(n2, n3)",
+    r: "root(n1 - n2, n3)"
+  },
+  {
+    l: "root(n1, n3) * root(n2, n3)",
+    r: "root(n1 * n2, n3)"
+  },
+  {
+    l: "root(n1, n3) / root(n2, n3)",
+    r: "root(n1 / n2, n3)"
+  }
+];
